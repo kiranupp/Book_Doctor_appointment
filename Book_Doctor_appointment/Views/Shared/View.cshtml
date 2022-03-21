@@ -1,0 +1,36 @@
+﻿
+
+<h2>Welcome </h2>
+<div>  @ViewBag.name</div>
+@Html.Hidden("hdnViewBag", (object)ViewBag.Id)
+<input type="hidden" id="someName" value="@ViewBag.Id" />
+<div class="jumbotron">
+    <h1>Welcome to Kiran Health Care</h1>
+    <p class="lead">At Kiran Health Care, the Best Multispeciality Hospital In Bengaluru, you will instantly discover that you are so much more than just a patient.</p>
+    <p><a href=/Hospital/Index/@ViewBag.Id class="btn btn-primary btn-lg" id="login">Book Appointment &raquo;</a></p>
+    @*@Html.DropDownList("location", ViewBag.location as SelectList, "Select Hospital", "Hospital_Location1")
+        @Html.HiddenFor(model => model.id)*@
+
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Make an Enquiry</h2>
+        <p>
+            Enquire about our services,facilities,diagnosis and treatment.
+        </p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Know More &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Health Checkups</h2>
+        <p>Customized preventive health check packages ideal for all age groups of men and women.</p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Know More &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Contact Us</h2>
+        <p>Access the best health care from any of our 5 hospitals speard across Bengaluru .</p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Know More &raquo;</a></p>
+    </div>
+</div>

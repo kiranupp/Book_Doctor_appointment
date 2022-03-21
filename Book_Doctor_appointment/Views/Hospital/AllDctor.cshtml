@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Book_Doctor_appointment.Models.Alldoctor>
+
+@{
+    ViewBag.Title = "DoctorsList";
+}
+
+<h2>Doctors List</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Doctorname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Speciality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Doctorname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Speciality)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                <p><a href=""  id="login">Book Appointment &raquo;</a></p>
+
+            </td>
+        </tr>
+    }
+</table>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $("#login").click(function () {
+        debugger;
+      
+        alert("Please login to Book appointments")
+
+    });
+
+</script>

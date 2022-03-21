@@ -1,0 +1,18 @@
+﻿@model Book_Doctor_appointment.Models.loginuser
+
+@{
+    ViewBag.Title = "loadlogin";
+}
+
+
+
+<h2>Welcome </h2>
+<div>  @ViewBag.name</div>
+@Html.Hidden("hdnViewBag", (object)ViewBag.Id)
+<input type="hidden" id="someName" value="@ViewBag.Id" />
+<br\>
+<a href="/Hospital/Myappointments/@ViewBag.Id" class="btn btn-primary btn-lg">My Appointments &raquo;</a>
+&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+<a href="/Hospital/Index/@ViewBag.Id" class="btn btn-primary btn-lg">Book Appointment &raquo;</a>
+&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+<a href="/Home/Index/" class="btn btn-primary">Logout &raquo;</a>

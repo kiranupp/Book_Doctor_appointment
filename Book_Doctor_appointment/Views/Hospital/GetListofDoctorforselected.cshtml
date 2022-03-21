@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Book_Doctor_appointment.Models.Alldoctor>
+
+@{
+    ViewBag.Title = "GetListofDoctorforselected";
+
+    var Userid = TempData["Userid"];
+}
+
+<h1>Doctors List</h1>
+<input type="hidden" id="Userid" value="@ViewBag.Userid" />
+
+@Html.Hidden("Userid", (object)ViewBag.Userid)
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Doctorname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Speciality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Doctorname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Speciality)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+              
+                @Html.ActionLink("Book Appointment", "Bookappointment", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+

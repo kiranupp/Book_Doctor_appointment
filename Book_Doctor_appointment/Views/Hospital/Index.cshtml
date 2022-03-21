@@ -1,0 +1,48 @@
+﻿@model List<SelectListItem>
+@{
+    ViewBag.Title = "Index";   
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <br />
+    @Html.Hidden("hdnViewBag", (object)ViewBag.Userid)
+    <input type="hidden" id="Userid" value="@ViewBag.Userid" />
+
+    @Html.DropDownList("location", Model, new { @id = "location" }) &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+    @Html.DropDownList("Specialty", Model, new { @id = "Specialty" }) &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+    <input class="btn btn-primary" name="submitButton" id="btnGet" value="Search Doctor" type="button">
+    <br />
+    <br />
+
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/select2.js"></script>
+    <script type="text/javascript">
+            $(function () {
+              
+                $("#btnGet").click(function () {
+                    debugger;
+
+                    var locid = $('#location option:selected').val();
+                    var Specialty = $('#Specialty option:selected').val();
+                    var userid = $('#Userid').val();
+                    if (locid == '' || Specialty == '') {
+                        alert("Please select Hospital and Speciality to proceed..");
+                    }
+
+                    else
+ window.location.href = '@Url.Action("GetListofDoctorforselected", "Hospital")?locid='+ locid +'&spid=' + Specialty+'&userid='+userid;
+    });
+    });
+    </script>
+</body>
+</html>

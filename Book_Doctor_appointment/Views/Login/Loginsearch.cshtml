@@ -1,0 +1,38 @@
+﻿@model Book_Doctor_appointment.Models.loginuser
+
+@{
+    ViewBag.Title = "Loginsearch";
+}
+
+<h2>Loginsearch</h2>
+<h2>login</h2>
+@using (Html.BeginForm("Login", "Login"))
+{
+    @Html.ValidationSummary(true)
+    {
+        <fieldset>
+            <legend>Login</legend>
+
+            <div class="editor">
+                @Html.LabelFor(model => model.Emailid)
+                <br />
+                @Html.TextBoxFor(model => model.Emailid)
+                @Html.ValidationMessageFor(model => model.Emailid)
+
+            </div>
+
+            <div class="editor">
+                @Html.LabelFor(model => model.Userpassword)
+                <br />
+                @Html.PasswordFor(Model => Model.Userpassword)
+
+                @Html.ValidationMessageFor(model => model.Userpassword)
+
+            </div>
+
+            <input type="submit" value="login" />
+            @ViewBag.data
+        </fieldset>
+    }
+
+}

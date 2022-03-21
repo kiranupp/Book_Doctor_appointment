@@ -1,0 +1,392 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HospitalApplicationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Appointments">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Userid" Type="int" />
+          <Property Name="Doctorid" Type="int" />
+          <Property Name="Date_of_Appointment" Type="date" />
+          <Property Name="Booked_appointment_date" Type="datetime" />
+          <Property Name="Timeslot" Type="int" />
+        </EntityType>
+        <EntityType Name="Hospital_location">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Hospital_Location" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ListofDoctor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="locid" Type="int" />
+          <Property Name="Doctorname" Type="varchar" MaxLength="100" />
+          <Property Name="Specialityid" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="Password" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="register">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="emailid" Type="nvarchar" MaxLength="50" />
+          <Property Name="userpassword" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Specialties">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Specialty" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Timeslot">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="timeslot" Type="varchar" MaxLength="20" />
+          <Property Name="Doctorid" Type="int" />
+        </EntityType>
+        <Association Name="FK__Appointme__Docto__6383C8BA">
+          <End Role="ListofDoctor" Type="Self.ListofDoctor" Multiplicity="0..1" />
+          <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListofDoctor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Appointments">
+              <PropertyRef Name="Doctorid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Times__6E01572D">
+          <End Role="Timeslot" Type="Self.Timeslot" Multiplicity="0..1" />
+          <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Timeslot">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Appointments">
+              <PropertyRef Name="Timeslot" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ListofDoc__locid__38996AB5">
+          <End Role="Hospital_location" Type="Self.Hospital_location" Multiplicity="0..1" />
+          <End Role="ListofDoctor" Type="Self.ListofDoctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospital_location">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ListofDoctor">
+              <PropertyRef Name="locid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ListofDoc__Speci__398D8EEE">
+          <End Role="Specialties" Type="Self.Specialties" Multiplicity="0..1" />
+          <End Role="ListofDoctor" Type="Self.ListofDoctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialties">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ListofDoctor">
+              <PropertyRef Name="Specialityid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Timeslot__Doctor__5CD6CB2B">
+          <End Role="ListofDoctor" Type="Self.ListofDoctor" Multiplicity="0..1" />
+          <End Role="Timeslot" Type="Self.Timeslot" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListofDoctor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Timeslot">
+              <PropertyRef Name="Doctorid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HospitalApplicationModelStoreContainer">
+          <EntitySet Name="Appointments" EntityType="Self.Appointments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hospital_location" EntityType="Self.Hospital_location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListofDoctor" EntityType="Self.ListofDoctor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="register" EntityType="Self.register" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Specialties" EntityType="Self.Specialties" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Timeslot" EntityType="Self.Timeslot" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Appointme__Docto__6383C8BA" Association="Self.FK__Appointme__Docto__6383C8BA">
+            <End Role="ListofDoctor" EntitySet="ListofDoctor" />
+            <End Role="Appointments" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Times__6E01572D" Association="Self.FK__Appointme__Times__6E01572D">
+            <End Role="Timeslot" EntitySet="Timeslot" />
+            <End Role="Appointments" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ListofDoc__locid__38996AB5" Association="Self.FK__ListofDoc__locid__38996AB5">
+            <End Role="Hospital_location" EntitySet="Hospital_location" />
+            <End Role="ListofDoctor" EntitySet="ListofDoctor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ListofDoc__Speci__398D8EEE" Association="Self.FK__ListofDoc__Speci__398D8EEE">
+            <End Role="Specialties" EntitySet="Specialties" />
+            <End Role="ListofDoctor" EntitySet="ListofDoctor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Timeslot__Doctor__5CD6CB2B" Association="Self.FK__Timeslot__Doctor__5CD6CB2B">
+            <End Role="ListofDoctor" EntitySet="ListofDoctor" />
+            <End Role="Timeslot" EntitySet="Timeslot" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HospitalApplicationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Hospital_location">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Hospital_Location1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ListofDoctors" Relationship="HospitalApplicationModel.FK__ListofDoc__locid__38996AB5" FromRole="Hospital_location" ToRole="ListofDoctor" />
+        </EntityType>
+        <EntityContainer Name="HospitalApplicationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Hospital_location" EntityType="Self.Hospital_location" />
+          <EntitySet Name="ListofDoctors" EntityType="HospitalApplicationModel.ListofDoctor" />
+          <EntitySet Name="Specialties" EntityType="HospitalApplicationModel.Specialty" />
+          <AssociationSet Name="FK__ListofDoc__locid__38996AB5" Association="HospitalApplicationModel.FK__ListofDoc__locid__38996AB5">
+            <End Role="Hospital_location" EntitySet="Hospital_location" />
+            <End Role="ListofDoctor" EntitySet="ListofDoctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ListofDoc__Speci__398D8EEE" Association="HospitalApplicationModel.FK__ListofDoc__Speci__398D8EEE">
+            <End Role="Specialty" EntitySet="Specialties" />
+            <End Role="ListofDoctor" EntitySet="ListofDoctors" />
+          </AssociationSet>
+          <EntitySet Name="registers" EntityType="HospitalApplicationModel.register" />
+          <EntitySet Name="Timeslots" EntityType="HospitalApplicationModel.Timeslot" />
+          <AssociationSet Name="FK__Timeslot__Doctor__5CD6CB2B" Association="HospitalApplicationModel.FK__Timeslot__Doctor__5CD6CB2B">
+            <End Role="ListofDoctor" EntitySet="ListofDoctors" />
+            <End Role="Timeslot" EntitySet="Timeslots" />
+          </AssociationSet>
+          <EntitySet Name="Appointments" EntityType="HospitalApplicationModel.Appointment" />
+          <AssociationSet Name="FK__Appointme__Docto__5FB337D6" Association="HospitalApplicationModel.FK__Appointme__Docto__5FB337D6">
+            <End Role="ListofDoctor" EntitySet="ListofDoctors" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Times__6E01572D" Association="HospitalApplicationModel.FK__Appointme__Times__6E01572D">
+            <End Role="Timeslot" EntitySet="Timeslots" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ListofDoctor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="locid" Type="Int32" />
+          <Property Name="Doctorname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Specialityid" Type="Int32" />
+          <NavigationProperty Name="Hospital_location" Relationship="HospitalApplicationModel.FK__ListofDoc__locid__38996AB5" FromRole="ListofDoctor" ToRole="Hospital_location" />
+          <NavigationProperty Name="Specialty" Relationship="HospitalApplicationModel.FK__ListofDoc__Speci__398D8EEE" FromRole="ListofDoctor" ToRole="Specialty" />
+          <NavigationProperty Name="Timeslots" Relationship="HospitalApplicationModel.FK__Timeslot__Doctor__5CD6CB2B" FromRole="ListofDoctor" ToRole="Timeslot" />
+          <NavigationProperty Name="Appointments" Relationship="HospitalApplicationModel.FK__Appointme__Docto__5FB337D6" FromRole="ListofDoctor" ToRole="Appointment" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Specialty">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Specialty1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ListofDoctors" Relationship="HospitalApplicationModel.FK__ListofDoc__Speci__398D8EEE" FromRole="Specialty" ToRole="ListofDoctor" />
+        </EntityType>
+        <Association Name="FK__ListofDoc__locid__38996AB5">
+          <End Type="HospitalApplicationModel.Hospital_location" Role="Hospital_location" Multiplicity="0..1" />
+          <End Type="HospitalApplicationModel.ListofDoctor" Role="ListofDoctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospital_location">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ListofDoctor">
+              <PropertyRef Name="locid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ListofDoc__Speci__398D8EEE">
+          <End Type="HospitalApplicationModel.Specialty" Role="Specialty" Multiplicity="0..1" />
+          <End Type="HospitalApplicationModel.ListofDoctor" Role="ListofDoctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialty">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ListofDoctor">
+              <PropertyRef Name="Specialityid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="register">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="emailid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userpassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Timeslot">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="timeslot1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Doctorid" Type="Int32" />
+          <NavigationProperty Name="ListofDoctor" Relationship="HospitalApplicationModel.FK__Timeslot__Doctor__5CD6CB2B" FromRole="Timeslot" ToRole="ListofDoctor" />
+          <NavigationProperty Name="Appointments" Relationship="HospitalApplicationModel.FK__Appointme__Times__6E01572D" FromRole="Timeslot" ToRole="Appointment" />
+        </EntityType>
+        <Association Name="FK__Timeslot__Doctor__5CD6CB2B">
+          <End Type="HospitalApplicationModel.ListofDoctor" Role="ListofDoctor" Multiplicity="0..1" />
+          <End Type="HospitalApplicationModel.Timeslot" Role="Timeslot" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListofDoctor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Timeslot">
+              <PropertyRef Name="Doctorid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Userid" Type="Int32" />
+          <Property Name="Doctorid" Type="Int32" />
+          <Property Name="Date_of_Appointment" Type="DateTime" Precision="0" />
+          <Property Name="Booked_appointment_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ListofDoctor" Relationship="HospitalApplicationModel.FK__Appointme__Docto__5FB337D6" FromRole="Appointment" ToRole="ListofDoctor" />
+          <Property Name="Timeslot" Type="Int32" />
+          <NavigationProperty Name="Timeslot1" Relationship="HospitalApplicationModel.FK__Appointme__Times__6E01572D" FromRole="Appointment" ToRole="Timeslot" />
+        </EntityType>
+        <Association Name="FK__Appointme__Docto__5FB337D6">
+          <End Type="HospitalApplicationModel.ListofDoctor" Role="ListofDoctor" Multiplicity="0..1" />
+          <End Type="HospitalApplicationModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListofDoctor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="Doctorid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Times__6E01572D">
+          <End Type="HospitalApplicationModel.Timeslot" Role="Timeslot" Multiplicity="0..1" />
+          <End Type="HospitalApplicationModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Timeslot">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="Timeslot" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HospitalApplicationModelStoreContainer" CdmEntityContainer="HospitalApplicationEntities">
+          <EntitySetMapping Name="Hospital_location">
+            <EntityTypeMapping TypeName="HospitalApplicationModel.Hospital_location">
+              <MappingFragment StoreEntitySet="Hospital_location">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Hospital_Location1" ColumnName="Hospital_Location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListofDoctors">
+            <EntityTypeMapping TypeName="HospitalApplicationModel.ListofDoctor">
+              <MappingFragment StoreEntitySet="ListofDoctor">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Specialityid" ColumnName="Specialityid" />
+                <ScalarProperty Name="Doctorname" ColumnName="Doctorname" />
+                <ScalarProperty Name="locid" ColumnName="locid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specialties">
+            <EntityTypeMapping TypeName="HospitalApplicationModel.Specialty">
+              <MappingFragment StoreEntitySet="Specialties">
+                <ScalarProperty Name="Specialty1" ColumnName="Specialty" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="registers">
+            <EntityTypeMapping TypeName="HospitalApplicationModel.register">
+              <MappingFragment StoreEntitySet="register">
+                <ScalarProperty Name="userpassword" ColumnName="userpassword" />
+                <ScalarProperty Name="emailid" ColumnName="emailid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Timeslots">
+            <EntityTypeMapping TypeName="HospitalApplicationModel.Timeslot">
+              <MappingFragment StoreEntitySet="Timeslot">
+                <ScalarProperty Name="Doctorid" ColumnName="Doctorid" />
+                <ScalarProperty Name="timeslot1" ColumnName="timeslot" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Appointments">
+            <EntityTypeMapping TypeName="HospitalApplicationModel.Appointment">
+              <MappingFragment StoreEntitySet="Appointments">
+                <ScalarProperty Name="Timeslot" ColumnName="Timeslot" />
+                <ScalarProperty Name="Booked_appointment_date" ColumnName="Booked_appointment_date" />
+                <ScalarProperty Name="Date_of_Appointment" ColumnName="Date_of_Appointment" />
+                <ScalarProperty Name="Doctorid" ColumnName="Doctorid" />
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

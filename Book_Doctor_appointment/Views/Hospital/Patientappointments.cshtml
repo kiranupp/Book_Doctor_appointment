@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Book_Doctor_appointment.Models.Myappointments>
+
+@{
+    ViewBag.Title = "Patientappointments";
+   
+}
+
+
+<span class="alert-success">
+    @ViewBag.name
+</span>
+
+<h2>Patient appointments</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Emailid)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dateofappointment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Timeslot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booked_Date)
+            </th>
+            <th>
+                Status
+            </th>
+           
+        </tr>
+        </thead>
+
+        @foreach (var item in Model)
+        {
+            <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Emailid)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dateofappointment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Timeslot)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Booked_Date)
+                </td>
+
+                <td>
+
+                    @{
+
+
+                        DateTime today = DateTime.Today;
+                    }
+                    @if ((item.Dateofappointment) < today)
+                    {
+                        <p style="color:green">Completed</p>
+                    }
+                    else
+                    {
+                        <p style="color:red">Pending</p>
+                    }
+                </td>
+            </tr>
+                </tbody>
+        }
+
+</table>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+
+@*<script>
+    $(function () {
+        $(".table").dataTable();
+    })
+</script>*@

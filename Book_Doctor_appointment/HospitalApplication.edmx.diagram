@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="de00933b5b96483ab2fe82a524a90c85" Name="Diagram1">
+        <EntityTypeShape EntityType="HospitalApplicationModel.Hospital_location" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HospitalApplicationModel.ListofDoctor" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="HospitalApplicationModel.Specialty" Width="1.5" PointX="0.75" PointY="4" />
+        <AssociationConnector Association="HospitalApplicationModel.FK__ListofDoc__locid__38996AB5" />
+        <AssociationConnector Association="HospitalApplicationModel.FK__ListofDoc__Speci__398D8EEE" />
+        <EntityTypeShape EntityType="HospitalApplicationModel.register" Width="1.5" PointX="3.375" PointY="3.75" />
+        <EntityTypeShape EntityType="HospitalApplicationModel.Timeslot" Width="1.5" PointX="5.25" PointY="1" />
+        <AssociationConnector Association="HospitalApplicationModel.FK__Timeslot__Doctor__5CD6CB2B" />
+        <EntityTypeShape EntityType="HospitalApplicationModel.Appointment" Width="1.5" PointX="5.25" PointY="7" />
+        <AssociationConnector Association="HospitalApplicationModel.FK__Appointme__Docto__5FB337D6" />
+        <AssociationConnector Association="HospitalApplicationModel.FK__Appointme__Times__6E01572D" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

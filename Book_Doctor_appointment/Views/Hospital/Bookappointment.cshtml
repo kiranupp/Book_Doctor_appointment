@@ -1,0 +1,134 @@
+﻿@model IEnumerable<Book_Doctor_appointment.Models.Appointments>
+
+
+@{
+    ViewBag.Title = "Book appointment";
+}
+<h2>Book appointment</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DoctorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Speciality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Timeslot)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoctorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Speciality)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+
+                @Html.EditorFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DropDownListFor(
+    modelItem => item.Timeslot,
+    (IEnumerable<SelectListItem>)ViewBag.Timeslot, "Select Time slot"
+
+    )
+             
+            </td>
+            <td>
+                <input class="btn btn-primary" name="submitButton" id="btnGet" value="Book Appointmnet" type="button">
+               
+            </td>
+        </tr>
+
+    }
+    <tr>
+    <input type="hidden" name="Date" value="Date" />
+    <input type="hidden" id="DoctorId" value="@ViewBag.DoctorId" />
+    <input type="hidden" id="Userid" value="@ViewBag.Userid" />
+    </tr>   
+</table>
+
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+
+
+    $(function () {
+     
+                debugger;
+          $("#item_Timeslot").hide();
+
+                debugger;
+        $("#btnGet").click(function () {
+
+            var locid = $('#location option:selected').val();
+            var date = $('#item_Date').val();
+            var userid = $('#Userid').val();
+            var doctorid = $('#DoctorId').val();
+            var timeslotid = $("#item_Timeslot option:selected").val()
+            debugger;
+            if (date == '' || timeslotid == '') {
+                alert("Please select date and time slot");
+
+            }
+            else {
+                window.location.href = '@Url.Action("BookappointmentSucess", "Hospital")?date=' + date + '&userid=' + userid + '&doctorid=' + doctorid + '&timeslotid=' + timeslotid;
+            }
+
+        
+    });
+      });
+        $('#item_Date').change(function () {
+            var date = $('#item_Date').val();
+            var doctorid = $('#DoctorId').val();
+
+            var Timeslot = $('#item_Timeslot');
+
+            var regionsSelect = $('#item_Timeslot');
+            regionsSelect.empty();
+            if (date != null && date != '') {
+                $.getJSON('@Url.Action("Gettimeslotbyavailability")', { doctorid: doctorid, date: date }, function (regions) {
+                    if (regions != null && !jQuery.isEmptyObject(regions)) {
+                        regionsSelect.append($('<option/>', {
+                            value: null,
+                            text: "Select Timeslot"
+                        }));
+                        $.each(regions, function (index, region) {
+                            regionsSelect.append($('<option/>', {
+                                value: region.Value,
+                                text: region.Text
+                            }));
+                        });
+
+                        $("#item_Timeslot").show();
+
+                    }
+
+                    else {
+                        $("#item_Timeslot").hide();
+                        alert("No time slot available please select different date")
+                    }
+                    ;
+                   
+                });
+            }    
+        });
+</script>
